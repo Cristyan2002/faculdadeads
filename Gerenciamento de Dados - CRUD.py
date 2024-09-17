@@ -34,7 +34,8 @@ while True:
                 print('(2) - Listar')
                 print('(3) - Atualizar')
                 print('(4) - Exluir')
-                print('(5) - Voltar ao Menu Principal')
+                print('(5) - Editar Usuário')
+                print('(6) - Voltar ao Menu Principal')
                 # O Usuário escolherá uma opção #
 
                 try:
@@ -44,7 +45,7 @@ while True:
                     sleep(2)
                     continue
 
-                if escolha2 >= 1 and escolha <= 5:
+                if escolha2 >= 1 and escolha <= 6:
                     if escolha2 == 1:
                         escolha_texto2 = '(1) - Incluir'
                         print(f'Você escolheu a opção: {escolha_texto2}')
@@ -77,6 +78,7 @@ while True:
                         sleep(2)
                     elif escolha2 == 4:
                         escolha_texto2 = '(4) - Excluir'
+                        print(f'Você escolheu a opção: {escolha_texto2}')
                         codigo_estudante = int(input('Qual o código do aluno que deseja remover? '))
                         estudante_excluir = None
                         for dados_estudantes in estudantes:
@@ -86,13 +88,32 @@ while True:
                                 sleep(2)
                                 print('Removido com sucesso!.')
                                 break
-                            if estudante_excluir == None:
+                        if estudante_excluir == None:
                                 print('Não entendi esse código, de uma olhadinha nos alunos cadastrados.')
                                 sleep(2)
                                 print(estudantes)
+                                break
                         estudantes.remove(estudante_excluir)
-                    
+                        
                     elif escolha2 == 5:
+                        escolha_texto2 = ('(5) - Editar Usuário')
+                        print(f'Você escolheu a opção: {escolha_texto2}')
+                        codigo_estudante = int(input('Qual o código do aluno que deseja editar ?'))
+                        estudante_editar = None
+                        for editor_estudante in estudantes:
+                            if editor_estudante['codigo_estudante'] == codigo_estudante:
+                                estudante_editar = editor_estudante
+                        if estudante_editar == None:
+                            print('Não achei nenhum usuário com esse código.')
+                            sleep(2)
+                            break
+                        else:
+                            estudante_editar['codigo_estudante'] = int(input('Digite um novo Código: '))
+                            estudante_editar['nome_estudante'] = int(input('Digite um novo Nome: '))
+                            estudante_editar['cpf_estudante'] = int(input('Digite um novo CPF: '))
+
+
+                    elif escolha2 == 6:
                         print('Você escolheu a opção: Voltar ao Menu Principal')
                         print('Voltando...')
                         sleep(2)
