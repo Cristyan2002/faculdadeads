@@ -1,9 +1,5 @@
-# Vou importar o sleep para o programa ficar um pouco mais dinâmico!
-from time import sleep
-#Lista para cada estudante adicionado!
-estudantes = []
-while True:
-    # Desenvolvimento do Menu Principal #
+# Criando a função do Menu de operações:
+def menu_de_operacoes():
     print('-' * 10, 'Olá, Bem vindo ao Menu Principal', '-' * 10)
     print('(1) - Gerenciar Estudantes ')
     print('(2) - Gerenciar Professores')
@@ -11,24 +7,8 @@ while True:
     print('(4) - Gerenciar Matrículas ')
     print('(5) - Gerenciar Turmas ')
     print('(6) - Sair')
-
-    # O Usuário irá selecionar a opção desejada, e consequentemente, irá para tela do menu de operações. #
-    try:
-        escolha = int(input('Escolha uma opção: '))
-    except ValueError:
-        print('Você inseriu uma letra ou caractere, digite novamente:')
-        sleep(2)
-        continue
-    # Caminhos para ao qual o usuário escolher #
-    if escolha >= 1 and escolha <= 5:
-        if escolha == 1:
-            print('Carregando...')
-            sleep(2)
-
-            escolha_texto = '(1) - Gerenciar Estudantes'
-            while True:
-                # A Opção do usuário irá aparecer aqui no menu de operações #
-
+# Criando a função do Segundo menu:
+def menu_de_operacoes_secundario():
                 print('-' * 10, f'{escolha_texto} : Menu de Operações', '-' * 10)
                 print('(1) - Incluir')
                 print('(2) - Listar')
@@ -36,8 +16,28 @@ while True:
                 print('(4) - Exluir')
                 print('(5) - Editar Usuário')
                 print('(6) - Voltar ao Menu Principal')
-                # O Usuário escolherá uma opção #
 
+# Vou importar o sleep para o programa ficar um pouco mais dinâmico!
+from time import sleep
+#Lista para cada estudante adicionado!
+estudantes = []
+while True:
+    menu_de_operacoes()
+    # O Usuário irá selecionar a opção desejada, e consequentemente, irá para tela do menu de operações. #
+    try:
+        escolha = int(input('Escolha uma opção: '))
+    except ValueError:
+        print('Você inseriu uma letra ou caractere, digite novamente:')
+        sleep(2)
+        continue
+    if escolha >= 1 and escolha <= 5:
+        if escolha == 1:
+            print('Carregando...')
+            sleep(2)
+
+            escolha_texto = '(1) - Gerenciar Estudantes'
+            while True:
+                menu_de_operacoes_secundario()
                 try:
                     escolha2 = int(input('Escolha uma opção: '))
                 except ValueError:
