@@ -93,6 +93,28 @@ def editar_estudantes(salvar):
                 salvar_arquivo(listas_estudantes, salvar)
                 print('Edição concluída com sucesso!')
                 sleep(2)
+def menu_de_operacoes_estudante(escolha, salvar):
+    if escolha2 >= 1 and escolha <= 6:
+        if escolha2 == 1:
+            incluir_estudantes(salvar)
+        elif escolha2 == 2:
+            lista_dos_estudantes(salvar)
+        elif escolha2 == 3:
+            excluir_estudantes(salvar)
+        elif escolha2 == 4:
+            editar_estudantes(salvar)
+        elif escolha2 == 5:
+            print('Você escolheu a opção: Voltar ao Menu Principal')
+            print('Voltando...')
+            sleep(2)
+            return False
+    else:
+        print('Você digitou uma opção inválida!.')
+        sleep(2)
+    return True
+        
+
+
 #Criando um arquivo para salvar JSON.
 def salvar_arquivo(listas_estudantes, salvar):
     with open(salvar, 'w') as open_file:
@@ -132,25 +154,8 @@ while True:
                     print('Você inseriu uma letra ou caractere, digite novamente:.')
                     sleep(2)
                     continue
-
-                if escolha2 >= 1 and escolha <= 6:
-                    if escolha2 == 1:
-                        incluir_estudantes(arquivo_estudante)
-                    elif escolha2 == 2:
-                        lista_dos_estudantes(arquivo_estudante)
-                    elif escolha2 == 3:
-                        excluir_estudantes(arquivo_estudante)
-                    elif escolha2 == 4:
-                        editar_estudantes(arquivo_estudante)
-                    elif escolha2 == 5:
-                        print('Você escolheu a opção: Voltar ao Menu Principal')
-                        print('Voltando...')
-                        sleep(2)
-                        break
-                    else:
-                        print('Você digitou uma opção inválida!.')
-                        sleep(2)
-                        continue
+                if not menu_de_operacoes_estudante(escolha2, arquivo_estudante):
+                    break
         elif escolha == 2:
             escolha_texto = '(2) - Gerenciar Professores'
             print('Desculpe, esta função está em desenvolvimento...!')
