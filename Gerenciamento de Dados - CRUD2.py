@@ -13,96 +13,143 @@ def menu_de_operacoes_secundario():
                 print('-' * 10, f'{escolha_texto} : Menu de Operações', '-' * 10)
                 print('(1) - Incluir')
                 print('(2) - Listar')
-                print('(3) - Exluir')
+                print('(3) - Excluir')
                 print('(4) - Editar Usuário')
                 print('(5) - Voltar ao Menu Principal')
-# Criando a funçao de Incluir (Cadastrar) os Estudantes:
-def incluir_estudantes(salvar):
+# Criando a funçao de Incluir os Cadastros:
+def incluir_cadastros(salvar):
     escolha_texto2 = '(1) - Incluir'
     print(f'Você escolheu a opção: {escolha_texto2}')
     listas_cadastros = ler_arquivo(salvar)
-    codigo = int(input('Digite o código do Estudante: '))
-    nome_estudantes = input('Digite o nome do Aluno: ')
+    codigo = int(input('Digite seu código: '))
+    nome = input('Digite seu nome: ')
     cpf = int(input('Por favor digite o CPF: '))
     #Criando um dicionário para armazenar as informações e separá-las
-    dados_estudantes = {
-    'codigo_estudante' : codigo,
-    'nome_estudante' : nome_estudantes,
-    'cpf_estudante' : cpf
+    dados_cadastros = {
+    'Codigo' : codigo,
+    'Nome' : nome,
+    'CPF' : cpf
     }
-    listas_cadastros.append(dados_estudantes)
+    listas_cadastros.append(dados_cadastros)
     print('Pronto, você está Incluído na Lista!.')
     sleep(2)
     salvar_arquivo(listas_cadastros, salvar)
-# Criando a função de mostrar as listas dos Estudantes, que foram cadastrados:
-def lista_dos_estudantes(salvar):
+# Criando a função de mostrar as listas dos cadastros, que foram cadastrados:
+def lista_dos_cadastrados(salvar):
     listas_cadastros = ler_arquivo(salvar)
     escolha_texto2 = '(2) - Listar'
     print(f'Você escolheu a opção: {escolha_texto2}')
-    if len (listas_cadastros) == 0:
-       print('Não há Estudantes Cadastrados!.')
+    if len(listas_cadastros) == 0:
+       print('Não ninguém cadastrados!.')
+       sleep(2)
     else:
         for lista in listas_cadastros:
-          print('Os estudantes cadastrados são:\n{}'.format(listas_cadastros))
+          print('Os cadastrados são:\n{}'.format(listas_cadastros))
           sleep(2)
           break
-# Criando a função de excluir os Estudantes através do código.
-def excluir_estudantes(salvar):
+# Criando a função de excluir os Cadastros através do código.
+def excluir_cadastros(salvar, arquivo_estudante):
     escolha_texto2 = '(3) - Excluir'
-    print(f'Você escolheu a opção: {escolha_texto2}')
-    codigo_estudante = int(input('Qual o código do aluno que deseja remover? '))
-    estudante_excluir = None
-    for dados_estudantes in codigo_estudante:
-      if dados_estudantes['codigo_estudante'] == codigo_estudante:
-         estudante_excluir = dados_estudantes
-         print('Removendo só um instante....')
-         sleep(2)
-         print('Removido com sucesso!.')
-         break
-      if estudante_excluir == None:
-         print('Não entendi esse código, de uma olhadinha nos alunos cadastrados.')
-         sleep(2)
-         print(listas_cadastros)
-         break
     listas_cadastros = ler_arquivo(arquivo_estudante)
-    listas_cadastros.remove(estudante_excluir)
-    salvar_arquivo(listas_cadastros, salvar)
+    print(f'Você escolheu a opção: {escolha_texto2}')
+    if len(listas_cadastros) == 0:
+        print('Nâo há nenhum código cadastrado!.')
+        sleep(2)
+    else: 
+        codigo = int(input('Qual o código que deseja remover? '))
+
+        cadastros_excluir = None
+        for dados_cadastros in listas_cadastros:
+            if dados_cadastros['Codigo'] == codigo:
+                cadastros_excluir = dados_cadastros
+                break
+        if cadastros_excluir is not None:
+            listas_cadastros.remove(cadastros_excluir)
+            salvar_arquivo(listas_cadastros, arquivo_estudante)
+            print('Código removido com sucesso!')
+            sleep(2)
+        else:
+            print('Código não encontrado!.')
+            sleep(2)
+         
     
 # Criando a função de editar um Estudante através do seu código.
-def editar_estudantes(salvar):
+def editar_cadastros(arquivo_estudante, salvar):
     escolha_texto2 = ('(4) - Editar Usuário')
     print(f'Você escolheu a opção: {escolha_texto2}')
-    listas_cadastros = ler_arquivo(salvar)
+    listas_cadastros = ler_arquivo(arquivo_estudante)
+    
     if len(listas_cadastros) == 0:
-            print('Nenhum estudantes está cadastrado.')
+        print('Não há nenhum código cadastrado.')
+        sleep(2)
+        return
+    codigo_editor = int(input('Qual o código que deseja editar ?'))
+    for editor_cadastros in listas_cadastros:
+        if editor_cadastros ['Codigo'] == codigo_editor:
+            editor_cadastros['Codigo'] = int(input('Digite um novo Código: '))
+            editor_cadastros['Nome'] = input('Digite um novo Nome: ')
+            editor_cadastros['CPF'] = input('Digite um novo CPF: ')
+            salvar_arquivo(listas_cadastros, salvar)
+            print('Edição concluída com sucesso!')
             sleep(2)
-    else:
-        codigo_estudante = int(input('Qual o código do aluno que deseja editar ?'))
-        estudante_editar = None
-        for editor_estudante in listas_cadastros:
-            if editor_estudante['codigo_estudante'] == codigo_estudante:
-                estudante_editar = editor_estudante
-            if estudante_editar == None:
-                print('Não achei nenhum usuário com esse código.')
-                sleep(2)
-                break
-            else:
-                estudante_editar['codigo_estudante'] = int(input('Digite um novo Código: '))
-                estudante_editar['nome_estudante'] = int(input('Digite um novo Nome: '))
-                estudante_editar['cpf_estudante'] = int(input('Digite um novo CPF: '))
-                salvar_arquivo(listas_cadastros, salvar)
-                print('Edição concluída com sucesso!')
-                sleep(2)
-def menu_de_operacoes_estudante(escolha, salvar):
+            return
+        
+    print('Código não encontrado.')
+    sleep(2)
+def incluir_cadastro2(salvar):
+    escolha_texto2 = '(1) - Incluir'
+    print(f'Você escolheu a opção: {escolha_texto2}')
+    listas_cadastros = ler_arquivo(salvar)
+    codigo = int(input('Digite seu código: '))
+    nome = input('Digite seu nome: ')
+    #Criando um dicionário para armazenar as informações e separá-las
+    dados_cadastros = {
+    'Codigo' : codigo,
+    'Nome' : nome,
+    }
+    listas_cadastros.append(dados_cadastros)
+    print('Pronto, você está Incluído na Lista!.')
+    sleep(2)
+    salvar_arquivo(listas_cadastros, salvar)
+def editar_cadastros2(arquivo_estudante, salvar):
+    escolha_texto2 = ('(4) - Editar Usuário')
+    print(f'Você escolheu a opção: {escolha_texto2}')
+    listas_cadastros = ler_arquivo(arquivo_estudante)
+    
+    if len(listas_cadastros) == 0:
+        print('Não há nenhum código cadastrado.')
+        sleep(2)
+        return
+    codigo_editor = int(input('Qual o código que deseja editar ?'))
+    for editor_cadastros in listas_cadastros:
+        if editor_cadastros ['Codigo'] == codigo_editor:
+            editor_cadastros['Codigo'] = int(input('Digite um novo Código: '))
+            editor_cadastros['Nome'] = input('Digite um novo Nome: ')
+            salvar_arquivo(listas_cadastros, salvar)
+            print('Edição concluída com sucesso!')
+            sleep(2)
+            return
+        print('Código não encontrado.')
+        sleep(2)
+    
+    
+    
+def menu_de_operacoes_terciario(escolha, salvar, pessoa):
     if escolha2 >= 1 and escolha <= 6:
         if escolha2 == 1:
-            incluir_estudantes(salvar)
+            if pessoa:
+                incluir_cadastros(salvar)
+            else:
+                incluir_cadastro2(salvar)
         elif escolha2 == 2:
-            lista_dos_estudantes(salvar)
+            lista_dos_cadastrados(salvar)
         elif escolha2 == 3:
-            excluir_estudantes(salvar)
+            excluir_cadastros(arquivo_estudante, salvar)
         elif escolha2 == 4:
-            editar_estudantes(salvar)
+            if pessoa:
+                editar_cadastros(arquivo_estudante, salvar)
+            else:
+                editar_cadastros2(arquivo_estudante, salvar)
         elif escolha2 == 5:
             print('Você escolheu a opção: Voltar ao Menu Principal')
             print('Voltando...')
@@ -112,8 +159,6 @@ def menu_de_operacoes_estudante(escolha, salvar):
         print('Você digitou uma opção inválida!.')
         sleep(2)
     return True
-        
-
 
 #Criando um arquivo para salvar JSON.
 def salvar_arquivo(listas_cadastros, salvar):
@@ -133,6 +178,9 @@ from time import sleep
 #Lista para cada estudante adicionado!
 arquivo_estudante = 'estudantes.json'
 arquivo_professor = 'professor.json'
+arquivo_disciplina = 'disciplina.json'
+arquivo_matriculas = 'matriculas.json'
+arquivo_turmas = 'turmas.json'
 while True:
     menu_de_operacoes()
     # O Usuário irá selecionar a opção desejada, e consequentemente, irá para tela do menu de operações. #
@@ -156,7 +204,8 @@ while True:
                     print('Você inseriu uma letra ou caractere, digite novamente:.')
                     sleep(2)
                     continue
-                if not menu_de_operacoes_estudante(escolha2, arquivo_estudante):
+                pessoa = True
+                if not menu_de_operacoes_terciario(escolha2, arquivo_estudante, pessoa):
                     break
         elif escolha == 2:
             escolha_texto = '(2) - Gerenciar Professores'
@@ -167,18 +216,49 @@ while True:
                 except ValueError:
                     print('Você inseriu uma letra ou caractere, digite novamente:.')
                     sleep(2)
-                    continue
-                if not menu_de_operacoes_estudante(escolha2, arquivo_professor):
+                    
+                pessoa = True
+                if not menu_de_operacoes_terciario(escolha2, arquivo_professor, pessoa):
                     break
         elif escolha == 3:
             escolha_texto = '(3) - Gerenciar Disciplinas'
-            menu_de_operacoes_estudante(escolha, arquivo_professor)
+            while True:
+                menu_de_operacoes_secundario()
+                try:
+                    escolha2 = int(input('Escolha uma opção: '))
+                except ValueError:
+                    print('Você inseriu uma letra ou caractere, digite novamente:.')
+                    sleep(2)
+                    continue
+                pessoa = False
+                if not menu_de_operacoes_terciario(escolha2, arquivo_disciplina, pessoa):
+                    break
         elif escolha == 4:
             escolha_texto = '(4) - Gerenciar Matrículas'
-            menu_de_operacoes_estudante(escolha, arquivo_professor)
+            while True:
+                menu_de_operacoes_secundario()
+                try:
+                    escolha2 = int(input('Escolha uma opção: '))
+                except ValueError:
+                    print('Você inseriu uma letra ou caractere, digite novamente:.')
+                    sleep(2)
+                    continue
+                pessoa = False
+                if not menu_de_operacoes_terciario(escolha2, arquivo_matriculas, pessoa):
+                    break
         elif escolha == 5:
             escolha_texto = '(5) - Gerenciar Turmas'
-            menu_de_operacoes_estudante(escolha, arquivo_professor)
+            while True:
+                menu_de_operacoes_secundario()
+                try:
+                    escolha2 = int(input('Escolha uma opção: '))
+                except ValueError:
+                    print('Você inseriu uma letra ou caractere, digite novamente:.')
+                    sleep(2)
+                    continue
+                pessoa = False
+                if not menu_de_operacoes_terciario(escolha2, arquivo_turmas, pessoa):
+                    break
 
     # Opções se o usuário escrever algo inválido ou resolver sair #
     elif escolha == 6:
