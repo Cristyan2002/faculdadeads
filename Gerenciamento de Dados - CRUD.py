@@ -56,7 +56,7 @@ def excluir_estudantes(estudantes):
          sleep(2)
          print('Removido com sucesso!.')
          break
-      if estudante_excluir == None:
+      elif estudante_excluir == None:
          print('Não entendi esse código, de uma olhadinha nos alunos cadastrados.')
          sleep(2)
          print(estudantes)
