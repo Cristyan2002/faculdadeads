@@ -129,8 +129,8 @@ def editar_cadastros2(arquivo_estudante, salvar):
             print('Edição concluída com sucesso!')
             sleep(2)
             return
-        print('Código não encontrado.')
-        sleep(2)
+    print('Código não encontrado.')
+    sleep(2)
     
     
     
