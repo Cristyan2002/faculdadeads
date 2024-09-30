@@ -48,9 +48,9 @@ def lista_dos_cadastrados(salvar):
           sleep(2)
           break
 # Criando a função de excluir os Cadastros através do código.
-def excluir_cadastros(salvar, arquivo_estudante):
+def excluir_cadastros(salvar, arquivo):
     escolha_texto2 = '(3) - Excluir'
-    listas_cadastros = ler_arquivo(arquivo_estudante)
+    listas_cadastros = ler_arquivo(arquivo)
     print(f'Você escolheu a opção: {escolha_texto2}')
     if len(listas_cadastros) == 0:
         print('Nâo há nenhum código cadastrado!.')
@@ -65,7 +65,7 @@ def excluir_cadastros(salvar, arquivo_estudante):
                 break
         if cadastros_excluir is not None:
             listas_cadastros.remove(cadastros_excluir)
-            salvar_arquivo(listas_cadastros, arquivo_estudante)
+            salvar_arquivo(listas_cadastros, arquivo)
             print('Código removido com sucesso!')
             sleep(2)
         else:
@@ -74,10 +74,10 @@ def excluir_cadastros(salvar, arquivo_estudante):
          
     
 # Criando a função de editar um Estudante através do seu código.
-def editar_cadastros(arquivo_estudante, salvar):
+def editar_cadastros(arquivo, salvar):
     escolha_texto2 = ('(4) - Editar Usuário')
     print(f'Você escolheu a opção: {escolha_texto2}')
-    listas_cadastros = ler_arquivo(arquivo_estudante)
+    listas_cadastros = ler_arquivo(arquivo)
     
     if len(listas_cadastros) == 0:
         print('Não há nenhum código cadastrado.')
@@ -111,10 +111,10 @@ def incluir_cadastro2(salvar):
     print('Pronto, você está Incluído na Lista!.')
     sleep(2)
     salvar_arquivo(listas_cadastros, salvar)
-def editar_cadastros2(arquivo_estudante, salvar):
+def editar_cadastros2(arquivo, salvar):
     escolha_texto2 = ('(4) - Editar Usuário')
     print(f'Você escolheu a opção: {escolha_texto2}')
-    listas_cadastros = ler_arquivo(arquivo_estudante)
+    listas_cadastros = ler_arquivo(arquivo)
     
     if len(listas_cadastros) == 0:
         print('Não há nenhum código cadastrado.')
@@ -144,12 +144,12 @@ def menu_de_operacoes_terciario(escolha, salvar, pessoa):
         elif escolha2 == 2:
             lista_dos_cadastrados(salvar)
         elif escolha2 == 3:
-            excluir_cadastros(arquivo_estudante, salvar)
+            excluir_cadastros(salvar, salvar)
         elif escolha2 == 4:
             if pessoa:
-                editar_cadastros(arquivo_estudante, salvar)
+                editar_cadastros(salvar, salvar)
             else:
-                editar_cadastros2(arquivo_estudante, salvar)
+                editar_cadastros2(salvar, salvar)
         elif escolha2 == 5:
             print('Você escolheu a opção: Voltar ao Menu Principal')
             print('Voltando...')
